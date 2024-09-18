@@ -2,8 +2,11 @@ import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import {Colors} from './../../constants/Colors'
 import { useRouter } from 'expo-router'
+import SignedOut, { useAuth } from '@clerk/clerk-expo'
 
 export default function MenuList() {
+
+  const {signOut} = useAuth()
 
     const menuList=[
         {
@@ -41,12 +44,27 @@ export default function MenuList() {
             path: '/viewstaff/vstaff'
             
         },
+        {
+          id:6,
+          name: 'Logout',
+          icon: require('./../../assets/images/logout.png'),
+          path: 'logout'
+          
+      },
         
 
 
     ]
 
     const router=useRouter();
+
+    const onMenuClick=(item) =>{
+      if(item.path == 'logout'){
+        signOut();
+        return ;
+      }
+      router.push(item.path)
+    }
   return (
 
     <View style={{marginTop:10}}>
@@ -59,7 +77,7 @@ export default function MenuList() {
       numColumns={2}
       renderItem={({item, index})=>(
         <TouchableOpacity 
-        onPress={()=>router.push(item.path)}
+        onPress={()=>onMenuClick(item)}
         style={{
             display:'flex',
             flexDirection: 'column',
