@@ -67,7 +67,7 @@ export default function MenuList() {
     }
   return (
 
-    <View style={{marginTop:10}}>
+    <View style={{marginTop:10, marginBottom:100}}>
       <Text style={{
         fontFamily:'outfit-bold',
         fontSize:20
