@@ -32,6 +32,13 @@ export default function AddStaff() {
     };
 
     function create() {
+
+        // Validation to check if any field is empty
+        if (!name || !birthDate || !nic || !salary || !phone || !gender || !role || !address || !workingDays) {
+            Alert.alert('Please fill all the fields before submitting');
+            return;
+        }
+        
         addDoc(collection(db, "Register staff"), {
             name: name,
             birthDate: birthDate ? birthDate.toLocaleDateString(): '', // Save date in a human-readable format or empty if not selected

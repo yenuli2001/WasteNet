@@ -26,6 +26,13 @@ export default function AddTasks() {
     };
 
     function create() {
+
+        // Validation to check if any field is empty
+        if (!cusName || !phone || !area || !noOfStaff || !date) {
+            Alert.alert('Please fill all the fields before submitting');
+            return;
+        }
+        
         addDoc(collection(db, "Assign"), {
             cusName: cusName,
             phone: phone,
