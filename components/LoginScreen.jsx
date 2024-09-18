@@ -77,7 +77,7 @@ export default function LoginScreen() {
                 <TouchableOpacity style={styles.btn}
                     onPress={onPress}
                 >
-                    <Text style={{ textAlign: 'center', color: '#fff', fontFamily: 'outfit' }}>Let's get started</Text>
+                    <Text style={{ textAlign: 'center', color: '#fff', fontFamily: 'outfit', fontSize:20 }}>Let's get started</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
         width: '90%',
         alingnSelf: 'center',
         borderRadius: 8,
-        marginTop: 15,
+        marginTop: 10,
         margin: 18,
-        marginBottom: 100
+        marginBottom: 2000
     }
 })
