@@ -1,19 +1,20 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform, Alert, FlatList } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from '../../constants/Colors';
 import { db } from './../../configs/FirebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
-import DateTimePicker from '@react-native-community/datetimepicker'; // Import DateTimePicker
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function AddStaff() {
     const router = useRouter();
-    const imageUrl = 'https://i.pinimg.com/564x/bc/d4/d8/bcd4d8028a16a6b4e3e0ecbcfd2ca437.jpg';
-    
+    const defaultImageUrl = 'https://i.pinimg.com/564x/bc/d4/d8/bcd4d8028a16a6b4e3e0ecbcfd2ca437.jpg';
+
     const [name, setName] = useState('');
-    const [birthDate, setBirthDate] = useState(null); // Use null initially
+    const [birthDate, setBirthDate] = useState(null);
     const [nic, setNic] = useState('');
     const [phone, setPhone] = useState('');
     const [salary, setSalary] = useState('');
@@ -21,24 +22,48 @@ export default function AddStaff() {
     const [workingDays, setWorkingDays] = useState('');
     const [gender, setGender] = useState('');
     const [role, setRole] = useState('');
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     const handleDateChange = (event, selectedDate) => {
         setShowDatePicker(false);
         if (selectedDate) {
-            setBirthDate(selectedDate.toLocaleDateString()); // Save only the date part
+            setBirthDate(selectedDate.toLocaleDateString());
+        }
+    };
+
+    const requestMediaLibraryPermission = async () => {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        return status === 'granted';
+    };
+
+    const pickImage = async () => {
+        const permissionGranted = await requestMediaLibraryPermission();
+
+        if (!permissionGranted) {
+            Alert.alert("Permission denied", "You've refused to allow this app to access your photos!");
+            return;
+        }
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setSelectedImage(result.assets[0].uri); // Store selected image URI
         }
     };
 
     function create() {
-
-        // Validation to check if any field is empty
-        if (!name || !birthDate || !nic || !salary || !phone || !gender || !role || !address || !workingDays) {
+        if (!name || !birthDate || !nic || !salary || !phone || !gender || !role || !address || !workingDays || !selectedImage) {
             Alert.alert('Please fill all the fields before submitting');
             return;
         }
-
+        
         addDoc(collection(db, "Register staff"), {
             name: name,
             birthDate: birthDate,
@@ -48,7 +73,8 @@ export default function AddStaff() {
             gender: gender,
             role: role,
             address: address,
-            workingDays: workingDays
+            workingDays: workingDays,
+            imageUrl: selectedImage // Add selected image URL to Firestore
         }).then(() => {
             console.log('Data submitted');
             Alert.alert('Success', 'Staff member registered successfully!');
@@ -61,7 +87,7 @@ export default function AddStaff() {
     return (
         <View style={{ flex: 1, backgroundColor: '#BDD695' }}>
             {/* Header Image */}
-            <Image source={{ uri: imageUrl }}
+            <Image source={{ uri: selectedImage || defaultImageUrl }}
                 style={{
                     width: '100%',
                     height: 200,
@@ -134,7 +160,6 @@ export default function AddStaff() {
                         <Ionicons name="calendar" size={20} color="gray" />
                     </TouchableOpacity>
 
-                    {/* DateTimePicker */}
                     {showDatePicker && (
                         <DateTimePicker
                             value={birthDate ? new Date(birthDate) : new Date()}
@@ -283,10 +308,34 @@ export default function AddStaff() {
                             <Ionicons name="chevron-down" size={20} color="gray" />
                         </TouchableOpacity>
                     </View>
+
+                    {/* Image Picker */}
+                    <TouchableOpacity
+                        onPress={pickImage}
+                        style={{
+                            padding: 15,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                            width: '90%',
+                            alignSelf: 'center',
+                            fontSize: 17,
+                            backgroundColor: '#fff',
+                            marginTop: 10,
+                            borderColor: '#fff',
+                            fontFamily: 'outfit',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <Text style={{ fontSize: 17, color: selectedImage ? 'black' : 'gray' }}>
+                            {selectedImage ? 'Image Selected' : 'Upload Image....'}
+                        </Text>
+                        <Ionicons name="image" size={20} color="gray" />
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
             
-
             <View>
                 {/* Register Button */}
                 <TouchableOpacity onPress={create} 
@@ -310,8 +359,6 @@ export default function AddStaff() {
                         </Text>
                     </TouchableOpacity>
             </View>
-            
         </View>
-        
     );
 }
