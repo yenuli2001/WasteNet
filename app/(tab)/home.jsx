@@ -1,29 +1,36 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Image } from 'react-native'
 import React from 'react'
-import Header from '../../components/Home/Header'
-import Slider from '../../components/Home/Slider'
-import Category from '../../components/Home/Category'
-import ServiceList from '../../components/Home/ServiceList'
+import UserIntro from '../../components/Home/UserIntro'
+import MenuList from '../../components/Home/MenuList'
+
 
 export default function home() {
+  const logoImage = require('../../assets/images/d.png');
   return (
-    <ScrollView>
-      {/* Header */}
-      <Header/>
+    <View style={{
+      padding: 20,
+      backgroundColor: '#BDD695',
+      flex:1
+      
+    }}>
 
-      {/* Slider */}
-       <Slider/>
-      {/* Category */}
+      {/* Logo */}
+  
+        <Image
+          source={logoImage}
+          style={{
+            width: '50%', // Adjust the width as needed
+            height: 100, // Adjust the height as needed
+            resizeMode: 'contain'
+          }}
+        />
 
-      <Category/>
+      {/* User Info */}
+      <UserIntro/>
 
-      {/* Popular business list */}
-
-      <ServiceList/>
-
-      <View style={{height:50}}>
-
+      {/* Menu List */}
+      <MenuList/>
+      
       </View>
-    </ScrollView>
   )
 }
