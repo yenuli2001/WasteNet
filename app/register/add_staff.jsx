@@ -120,6 +120,32 @@ export default function AddStaff() {
             >
                 {/* Form Inputs */}
                 <View>
+
+                    {/* Image Picker */}
+                    <TouchableOpacity
+                        onPress={pickImage}
+                        style={{
+                            padding: 15,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                            width: '90%',
+                            alignSelf: 'center',
+                            fontSize: 17,
+                            backgroundColor: '#fff',
+                            marginTop: 10,
+                            borderColor: '#fff',
+                            fontFamily: 'outfit',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <Text style={{ fontSize: 17, color: selectedImage ? 'black' : 'gray' }}>
+                            {selectedImage ? 'Image Selected' : 'Upload Image....'}
+                        </Text>
+                        <Ionicons name="image" size={20} color="gray" />
+                    </TouchableOpacity>
+                    
                     <TextInput value={name} onChangeText={(name) => setName(name)} placeholderTextColor='gray' placeholder='Name....'
                         style={{
                             padding: 15,
@@ -309,30 +335,7 @@ export default function AddStaff() {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Image Picker */}
-                    <TouchableOpacity
-                        onPress={pickImage}
-                        style={{
-                            padding: 15,
-                            borderWidth: 1,
-                            borderRadius: 5,
-                            width: '90%',
-                            alignSelf: 'center',
-                            fontSize: 17,
-                            backgroundColor: '#fff',
-                            marginTop: 10,
-                            borderColor: '#fff',
-                            fontFamily: 'outfit',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
-                        }}
-                    >
-                        <Text style={{ fontSize: 17, color: selectedImage ? 'black' : 'gray' }}>
-                            {selectedImage ? 'Image Selected' : 'Upload Image....'}
-                        </Text>
-                        <Ionicons name="image" size={20} color="gray" />
-                    </TouchableOpacity>
+                    
                 </View>
             </ScrollView>
             
