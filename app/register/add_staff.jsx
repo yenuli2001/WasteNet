@@ -38,10 +38,10 @@ export default function AddStaff() {
             Alert.alert('Please fill all the fields before submitting');
             return;
         }
-        
+
         addDoc(collection(db, "Register staff"), {
             name: name,
-            birthDate: birthDate ? birthDate.toLocaleDateString(): '', // Save date in a human-readable format or empty if not selected
+            birthDate: birthDate,
             nic: nic,
             salary: salary,
             phone: phone,
