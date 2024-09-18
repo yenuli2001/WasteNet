@@ -19,9 +19,10 @@ export default function AddTasks() {
     const [showDatePicker, setShowDatePicker] = useState(false); // Toggle DatePicker visibility
 
     const handleDateChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date; // Set the selected date
-        setShowDatePicker(false); // Hide the DatePicker after selection
-        setDate(currentDate); // Update the date state
+        setShowDatePicker(false);
+        if (selectedDate) {
+            setDate(selectedDate.toLocaleDateString()); // Save only the date part
+        }
     };
 
     function create() {
@@ -103,21 +104,25 @@ export default function AddTasks() {
                             backgroundColor: '#fff',
                             marginTop: 10,
                             borderColor: '#fff',
-                            fontFamily: 'outfit'
+                            fontFamily: 'outfit',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
                         }}
                     >
                         <Text style={{ fontSize: 17, color: date ? 'black' : 'gray' }}>
-                            {date ? date.toLocaleDateString() : 'Date....'} {/* Display "Date" as a placeholder */}
+                        {date || 'Date....'} {/* Display "Date" as a placeholder */}
                         </Text>
+                        <Ionicons name="calendar" size={20} color="gray" />
                     </TouchableOpacity>
 
                     {/* DateTimePicker */}
                     {showDatePicker && (
                         <DateTimePicker
-                            value={date || new Date()} // Show the current date if no date is selected
-                            mode="date" // Only date mode
-                            display="default" // Native iOS style
-                            onChange={handleDateChange} // Date change handler
+                            value={date ? new Date(date) : new Date()}
+                            mode="date"
+                            display="default"
+                            onChange={handleDateChange}
                         />
                     )}
 

@@ -34,7 +34,7 @@ export default function AddStaff() {
     function create() {
         addDoc(collection(db, "Register staff"), {
             name: name,
-            birthDate: birthDate,
+            birthDate: birthDate ? birthDate.toLocaleDateString(): '', // Save date in a human-readable format or empty if not selected
             nic: nic,
             salary: salary,
             phone: phone,
