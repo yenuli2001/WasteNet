@@ -173,6 +173,7 @@ export default function ViewTasks() {
         <Ionicons name="search" size={24} color="black" />
         <TextInput
           placeholder='Search by Name...'
+          placeholderTextColor='gray'
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           style={{
