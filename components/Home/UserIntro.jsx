@@ -10,12 +10,12 @@ export default function UserIntro() {
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom:5,
-        marginTop:1
+        
         }}>
       <Image source={{uri:user?.imageUrl}}
       style={{
-        width:90,
-        height:90,
+        width:70,
+        height:70,
         borderRadius:99
       }}/>
       <Text style={{
