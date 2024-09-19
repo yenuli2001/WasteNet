@@ -231,7 +231,7 @@ export default function ViewStaff() {
                                     style={{
                                         backgroundColor: '#FF4D4D',
                                         padding: 10,
-                                        borderRadius: 5,
+                                        borderRadius: 10,
                                         width: '30%',
                                         alignItems: 'center'
                                     }}
