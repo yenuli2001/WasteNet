@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform, Alert, FlatList } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -24,18 +24,26 @@ export default function AddStaff() {
 
     const [showDatePicker, setShowDatePicker] = useState(false);
 
+    // Handle date change for both mobile and web
     const handleDateChange = (event, selectedDate) => {
-        setShowDatePicker(false);
-        if (selectedDate) {
-            setBirthDate(selectedDate.toLocaleDateString()); // Save only the date part
+        if (Platform.OS === 'web') {
+            setBirthDate(event.target.value);  // For web
+        } else {
+            setShowDatePicker(false);
+            if (selectedDate) {
+                setBirthDate(selectedDate.toLocaleDateString());  // For mobile
+            }
         }
     };
 
     function create() {
-
         // Validation to check if any field is empty
         if (!name || !birthDate || !nic || !salary || !phone || !gender || !role || !address || !workingDays) {
-            Alert.alert('Please fill all the fields before submitting');
+            if (Platform.OS === 'web') {
+                window.alert('Please fill all the fields before submitting');  // For web
+            } else {
+                Alert.alert('Please fill all the fields before submitting');  // For mobile
+            }
             return;
         }
 
@@ -51,10 +59,22 @@ export default function AddStaff() {
             workingDays: workingDays
         }).then(() => {
             console.log('Data submitted');
-            Alert.alert('Success', 'Staff member registered successfully!');
+            
+            // Show success message based on platform
+            if (Platform.OS === 'web') {
+                window.alert('Staff member registered successfully!'); // Web alert
+            } else {
+                Alert.alert('Success', 'Staff member registered successfully!');  // Mobile alert
+            }
         }).catch((error) => {
             console.log(error);
-            Alert.alert('Error', 'Something went wrong');
+            
+            // Show error message based on platform
+            if (Platform.OS === 'web') {
+                window.alert('Error: Something went wrong');  // Web alert
+            } else {
+                Alert.alert('Error', 'Something went wrong');  // Mobile alert
+            }
         });
     }
 
@@ -110,15 +130,13 @@ export default function AddStaff() {
                     />
                     
                     {/* Birth Date Input */}
-                    <TouchableOpacity
-                        onPress={() => setShowDatePicker(true)}
-                        style={{
+                    {Platform.OS === 'web' ? (
+                        <View style={{
                             padding: 15,
                             borderWidth: 1,
                             borderRadius: 5,
                             width: '90%',
                             alignSelf: 'center',
-                            fontSize: 17,
                             backgroundColor: '#fff',
                             marginTop: 10,
                             borderColor: '#fff',
@@ -126,16 +144,49 @@ export default function AddStaff() {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between'
-                        }}
-                    >
-                        <Text style={{ fontSize: 17, color: birthDate ? 'black' : 'gray' }}>
-                            {birthDate || 'Birth Date....'}
-                        </Text>
-                        <Ionicons name="calendar" size={20} color="gray" />
-                    </TouchableOpacity>
+                        }}>
+                            <input 
+                                type="date" 
+                                value={birthDate || ''} 
+                                onChange={handleDateChange} 
+                                style={{
+                                    width: '100%',
+                                    fontSize: 17,
+                                    padding: 10,
+                                    border: 'none',
+                                    outline: 'none',
+                                    fontFamily: 'outfit'
+                                }} 
+                            />
+                        </View>
+                    ) : (
+                        <TouchableOpacity
+                            onPress={() => setShowDatePicker(true)}
+                            style={{
+                                padding: 15,
+                                borderWidth: 1,
+                                borderRadius: 5,
+                                width: '90%',
+                                alignSelf: 'center',
+                                fontSize: 17,
+                                backgroundColor: '#fff',
+                                marginTop: 10,
+                                borderColor: '#fff',
+                                fontFamily: 'outfit',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
+                        >
+                            <Text style={{ fontSize: 17, color: birthDate ? 'black' : 'gray' }}>
+                                {birthDate || 'Birth Date....'}
+                            </Text>
+                            <Ionicons name="calendar" size={20} color="gray" />
+                        </TouchableOpacity>
+                    )}
 
-                    {/* DateTimePicker */}
-                    {showDatePicker && (
+                    {/* DateTimePicker for mobile only */}
+                    {showDatePicker && Platform.OS !== 'web' && (
                         <DateTimePicker
                             value={birthDate ? new Date(birthDate) : new Date()}
                             mode="date"
@@ -144,6 +195,7 @@ export default function AddStaff() {
                         />
                     )}
 
+                    {/* Other Form Fields */}
                     <TextInput value={address} onChangeText={(address) => setAddress(address)} placeholderTextColor='gray' placeholder='Address....'
                         style={{
                             padding: 15,
@@ -286,32 +338,29 @@ export default function AddStaff() {
                 </View>
             </ScrollView>
             
-
             <View>
                 {/* Register Button */}
                 <TouchableOpacity onPress={create} 
-                        style={{
-                            backgroundColor: Colors.BTN, 
-                            width: '50%', 
-                            alignSelf: 'center', 
-                            padding: 15, 
-                            borderRadius: 5, 
-                            marginTop: 20,
-                            marginBottom: 20
-                        }}
-                    >
-                        <Text style={{
-                            color: '#fff', 
-                            textAlign: 'center', 
-                            fontSize: 17, 
-                            fontFamily: 'outfit-medium'
-                        }}>
-                            Register
-                        </Text>
-                    </TouchableOpacity>
+                    style={{
+                        backgroundColor: Colors.BTN, 
+                        width: '50%', 
+                        alignSelf: 'center', 
+                        padding: 15, 
+                        borderRadius: 5, 
+                        marginTop: 20,
+                        marginBottom: 20
+                    }}
+                >
+                    <Text style={{
+                        color: '#fff', 
+                        textAlign: 'center', 
+                        fontSize: 17, 
+                        fontFamily: 'outfit-medium'
+                    }}>
+                        Register
+                    </Text>
+                </TouchableOpacity>
             </View>
-            
         </View>
-        
     );
 }

@@ -52,7 +52,7 @@ export default function ViewTasks() {
     } catch (error) {
       console.log('Error deleting task: ', error);
     }
-    Alert.alert('Deleted Successfully!')
+    Alert.alert('Success', 'Task deleted successfully!')
   };
 
   // Function to update task progress
@@ -83,7 +83,7 @@ export default function ViewTasks() {
       console.log('Error updating task: ', error);
     }
 
-    Alert.alert('Updated Successfully!')
+    Alert.alert('Success', 'Task updated successfully!')
   };
 
   // Function to create PDF and download
@@ -224,7 +224,7 @@ export default function ViewTasks() {
                 <View style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  backgroundColor: '#ADD8E6', // Light blue background
+                  backgroundColor: '#3B3C8B', // blue background
                   padding: 10,
                   borderRadius: 10,
                   marginTop: 10,
@@ -234,7 +234,7 @@ export default function ViewTasks() {
                     editable={false}
                     style={{
                       flex: 1,
-                      color: '#000',
+                      color: '#fff',
                       fontSize: 16,
                       paddingHorizontal: 10,
                     }}
@@ -321,7 +321,7 @@ export default function ViewTasks() {
           borderRadius: 10,
           elevation: 5
         }}>
-          <Text style={{ fontFamily: 'outfit-bold', fontSize: 18 }}>Edit Task</Text>
+          <Text style={{ fontFamily: 'outfit-bold', fontSize: 18 }}>Update Task</Text>
           <TextInput
             placeholder='Customer Name'
             value={editingTask.cusName}
