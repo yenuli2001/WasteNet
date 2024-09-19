@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList, Image, TextInput, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Image, TextInput, Alert, Platform } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -49,10 +49,17 @@ export default function ViewTasks() {
     try {
       await deleteDoc(doc(db, 'Assign', taskId));
       setTaskList(taskList.filter(task => task.id !== taskId)); // Remove the task from the list
+
+      if (Platform.OS === 'web') {
+        window.alert('Task deleted successfully!');
+      } else {
+        Alert.alert('Success', 'Task deleted successfully!');
+      }
+
     } catch (error) {
       console.log('Error deleting task: ', error);
     }
-    Alert.alert('Success', 'Task deleted successfully!')
+
   };
 
   // Function to update task progress
@@ -63,7 +70,7 @@ export default function ViewTasks() {
     } catch (error) {
       console.log('Error updating progress: ', error);
     }
-    
+
   };
 
   // Function to update task details
@@ -79,11 +86,18 @@ export default function ViewTasks() {
         prevList.map(task => (task.id === editingTask.id ? editingTask : task))
       );
       setEditingTask(null);
+
+      if (Platform.OS === 'web') {
+        window.alert('Task updated successfully!');
+      } else {
+        Alert.alert('Success', 'Task updated successfully!');
+      }
+
     } catch (error) {
       console.log('Error updating task: ', error);
     }
 
-    Alert.alert('Success', 'Task updated successfully!')
+
   };
 
   // Function to create PDF and download
@@ -205,7 +219,7 @@ export default function ViewTasks() {
               <Text style={{ fontFamily: 'outfit-bold', fontSize: 16, marginLeft: 15, marginTop: 10 }}>
                 Progress for {item.cusName}:
               </Text>
-              
+
               {/* Task Details */}
               <View style={{
                 backgroundColor: '#fff',
@@ -225,7 +239,7 @@ export default function ViewTasks() {
                 <View style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  backgroundColor: '#3B3C8B', // blue background
+                  backgroundColor: '#3B3C8B', // Light blue background
                   padding: 10,
                   borderRadius: 10,
                   marginTop: 10,
@@ -264,7 +278,7 @@ export default function ViewTasks() {
                   <TouchableOpacity
                     onPress={() => setEditingTask(item)}
                     style={{
-                      backgroundColor:'#5F812A',
+                      backgroundColor: '#5F812A',
                       padding: 10,
                       borderRadius: 10,
                       width: '30%',
@@ -310,7 +324,7 @@ export default function ViewTasks() {
         </TouchableOpacity>
       </View>
 
-      {/* Edit Task Modal */}
+      {/* Update Task Modal */}
       {editingTask && (
         <View style={{
           position: 'absolute',

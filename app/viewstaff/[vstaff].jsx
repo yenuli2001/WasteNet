@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList, Image, TextInput, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Image, TextInput, Alert, Platform } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -100,7 +100,12 @@ export default function ViewStaff() {
             await deleteDoc(doc(db, "Register staff", id));
             setStaffList(prevList => prevList.filter(staff => staff.id !== id));
             setFilteredStaffList(prevList => prevList.filter(staff => staff.id !== id));
-            Alert.alert('Success', 'Staff member deleted successfully!');
+
+            if (Platform.OS === 'web') {
+                window.alert('Staff member deleted successfully!');
+            } else {
+                Alert.alert('Success', 'Staff member deleted successfully!');
+            }
         } catch (error) {
             console.log('Error deleting staff member: ', error);
         }
@@ -120,7 +125,12 @@ export default function ViewStaff() {
                 prevList.map(staff => (staff.id === editingStaff.id ? editingStaff : staff))
             );
             setEditingStaff(null);
-            Alert.alert('Success', 'Staff member updated successfully!');
+
+            if (Platform.OS === 'web') {
+                window.alert('Staff member updated successfully!');
+            } else {
+                Alert.alert('Success', 'Staff member updated successfully!');
+            }
         } catch (error) {
             console.log('Error updating staff member: ', error);
         }
@@ -165,7 +175,7 @@ export default function ViewStaff() {
                 <Ionicons name="search" size={24} color="black" />
                 <TextInput
                     placeholder='Search by Name...'
-                    placeholderTextColor='gray'
+                    placeholderTextColor=''
                     value={searchQuery}
                     onChangeText={(text) => setSearchQuery(text)}
                     style={{
