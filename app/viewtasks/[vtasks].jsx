@@ -263,7 +263,7 @@ export default function ViewTasks() {
                   <TouchableOpacity
                     onPress={() => setEditingTask(item)}
                     style={{
-                      backgroundColor: Colors.BTN,
+                      backgroundColor:'#5F812A',
                       padding: 10,
                       borderRadius: 10,
                       width: '30%',

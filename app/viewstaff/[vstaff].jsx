@@ -215,7 +215,7 @@ export default function ViewStaff() {
                                 <TouchableOpacity
                                     onPress={() => handleEditPress(item)}
                                     style={{
-                                        backgroundColor: Colors.BTN,
+                                        backgroundColor:'#5F812A',
                                         padding: 10,
                                         borderRadius: 10,
                                         width: '30%',
@@ -232,7 +232,7 @@ export default function ViewStaff() {
                                         backgroundColor: '#FF4D4D',
                                         padding: 10,
                                         borderRadius: 5,
-                                        width: '40%',
+                                        width: '30%',
                                         alignItems: 'center'
                                     }}
                                 >
