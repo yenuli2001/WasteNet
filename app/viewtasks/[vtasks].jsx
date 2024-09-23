@@ -336,6 +336,7 @@ export default function ViewTasks() {
           borderRadius: 10,
           elevation: 5
         }}>
+          <ScrollView>
           <Text style={{ fontFamily: 'outfit-bold', fontSize: 18 }}>Update Task</Text>
           <TextInput
             placeholder='Customer Name'
@@ -377,10 +378,12 @@ export default function ViewTasks() {
             onPress={handleUpdateTask}
             style={{
               backgroundColor: Colors.BTN,
-              padding: 10,
+              padding: 10,  // Reduced padding for smaller button
               borderRadius: 5,
               marginVertical: 10,
-              alignItems: 'center'
+              width: '60%', // Reduced width for smaller button
+              alignItems: 'center',
+              alignSelf: 'center' // Centers the button horizontally
             }}
           >
             <Text style={{ color: '#fff', fontSize: 16 }}>Save Changes</Text>
@@ -388,14 +391,18 @@ export default function ViewTasks() {
           <TouchableOpacity
             onPress={() => setEditingTask(null)}
             style={{
-              backgroundColor: 'red',
-              padding: 10,
+              backgroundColor:'#FF4D4D',
+              padding: 10,  // Reduced padding for smaller button
               borderRadius: 5,
-              alignItems: 'center'
+              marginVertical: 10,
+              width: '60%', // Reduced width for smaller button
+              alignItems: 'center',
+              alignSelf: 'center' // Centers the button horizontally
             }}
           >
             <Text style={{ color: '#fff', fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity>
+          </ScrollView>
         </View>
       )}
     </View>

@@ -226,7 +226,7 @@ export default function ViewStaff() {
                                 <TouchableOpacity
                                     onPress={() => handleEditPress(item)}
                                     style={{
-                                        backgroundColor:'#5F812A',
+                                        backgroundColor: '#5F812A',
                                         padding: 10,
                                         borderRadius: 10,
                                         width: '30%',
@@ -281,86 +281,94 @@ export default function ViewStaff() {
                     backgroundColor: 'white',
                     padding: 20,
                     borderRadius: 10,
-                    elevation: 5
+                    elevation: 5,
+                    maxHeight: '70%' // Limiting height for scrollable content
                 }}>
-                    <Text style={{ fontFamily: 'outfit-bold', fontSize: 18 }}>Update Registration</Text>
-                    <TextInput
-                        placeholder='Name'
-                        value={editingStaff.name}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, name: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Birth Date'
-                        value={editingStaff.birthDate}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, birthDate: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='NIC'
-                        value={editingStaff.nic}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, nic: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Phone'
-                        value={editingStaff.phone}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, phone: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Salary'
-                        value={editingStaff.salary}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, salary: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Gender'
-                        value={editingStaff.gender}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, gender: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Role'
-                        value={editingStaff.role}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, role: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Address'
-                        value={editingStaff.address}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, address: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TextInput
-                        placeholder='Working Days'
-                        value={editingStaff.workingDays}
-                        onChangeText={(text) => setEditingStaff(prev => ({ ...prev, workingDays: text }))}
-                        style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
-                    />
-                    <TouchableOpacity
-                        onPress={handleUpdate}
-                        style={{
-                            backgroundColor: Colors.BTN,
-                            padding: 10,
-                            borderRadius: 5,
-                            marginVertical: 10,
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Text style={{ color: '#fff', fontSize: 16 }}>Save Changes</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => setEditingStaff(null)}
-                        style={{
-                            backgroundColor: '#FF4D4D',
-                            padding: 10,
-                            borderRadius: 5,
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Text style={{ color: '#fff', fontSize: 16 }}>Cancel</Text>
-                    </TouchableOpacity>
+                    <ScrollView>
+                        <Text style={{ fontFamily: 'outfit-bold', fontSize: 18 }}>Update Registration</Text>
+                        <TextInput
+                            placeholder='Name'
+                            value={editingStaff.name}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, name: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Birth Date'
+                            value={editingStaff.birthDate}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, birthDate: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='NIC'
+                            value={editingStaff.nic}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, nic: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Phone'
+                            value={editingStaff.phone}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, phone: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Salary'
+                            value={editingStaff.salary}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, salary: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Gender'
+                            value={editingStaff.gender}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, gender: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Role'
+                            value={editingStaff.role}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, role: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Address'
+                            value={editingStaff.address}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, address: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TextInput
+                            placeholder='Working Days'
+                            value={editingStaff.workingDays}
+                            onChangeText={(text) => setEditingStaff(prev => ({ ...prev, workingDays: text }))}
+                            style={{ marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}
+                        />
+                        <TouchableOpacity
+                            onPress={handleUpdate}
+                            style={{
+                                backgroundColor: Colors.BTN,
+                                padding: 10,  // Reduced padding for smaller button
+                                borderRadius: 5,
+                                marginVertical: 10,
+                                width: '60%', // Reduced width for smaller button
+                                alignItems: 'center',
+                                alignSelf: 'center' // Centers the button horizontally
+                            }}
+                        >
+                            <Text style={{ color: '#fff', fontSize: 16 }}>Save Changes</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setEditingStaff(null)}
+                            style={{
+                                backgroundColor:'#FF4D4D',
+                                padding: 10,  // Reduced padding for smaller button
+                                borderRadius: 5,
+                                marginVertical: 10,
+                                width: '60%', // Reduced width for smaller button
+                                alignItems: 'center',
+                                alignSelf: 'center' // Centers the button horizontally
+                            }}
+                        >
+                            <Text style={{ color: '#fff', fontSize: 16 }}>Cancel</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
                 </View>
             )}
         </View>
